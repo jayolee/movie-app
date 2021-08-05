@@ -1,3 +1,8 @@
+html {
+  @media (max-width:600px){
+    font-size: 14px;
+  }
+}
 .MuiDialog-container {
   transition: opacity 225ms ease-in-out !important;
 }

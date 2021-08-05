@@ -1,8 +1,15 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { homeRoute, seriesRoute, moviesRoute } from './Routing'
+import { homeRoute, seriesRoute, moviesRoute } from './Routing';
 
-import { Box, AppBar, IconButton, makeStyles, Tooltip, Typography } from '@material-ui/core'
+import {
+    Box,
+    AppBar,
+    IconButton,
+    makeStyles,
+    Tooltip,
+    Typography,
+} from '@material-ui/core';
 import MovieOutlinedIcon from '@material-ui/icons/MovieOutlined';
 import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 
@@ -12,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         textTransform: 'uppercase',
         textDecoration: 'none',
         fontWeight: '300',
-        letterSpacing: '2px'
+        letterSpacing: '2px',
     },
     navbar: {
         transition: '.2s',
@@ -26,38 +33,54 @@ const useStyles = makeStyles((theme) => ({
         margin: '0 auto',
         height: '50px',
         borderRadius: '25px',
+        [theme.breakpoints.down('xs')]: {
+            paddingRight: theme.spacing(1),
+            paddingLeft: theme.spacing(2),
+        },
     },
     homeNavBar: {
         justifyContent: 'center',
         background: 'none',
     },
-    menuIcons: {
-        marginRight: theme.spacing(2)
-    }
-}))
-  
+}));
+
 export default function Header() {
     const curLocation = useLocation().pathname;
     const classes = useStyles();
     return (
         <Box maxWidth='1920px' p={1} position='sticky' top='0' zIndex='999'>
-        <AppBar position='static' key='navbar' className={`${classes.navbar} ${curLocation === '/' ? classes.homeNavBar : ''}`}>
-            <Typography variant='h6' key='logo' className={classes.logo} aria-label='home' component={Link} to={homeRoute} color='primary' style={{color: curLocation === '/' ? '#ffffff': ''}}>
-                DEMO Streaming
-          </Typography>
-            <Box display={curLocation === '/' ? 'none' : ''} key='navmenus'>
-                <Tooltip title='Series' aria-label='series'>
-                    <IconButton component={Link} to={seriesRoute}>
-                        <OndemandVideoIcon />
-                    </IconButton>
-                </Tooltip>
-                <Tooltip title='Movies' aria-label='movies'>
-                    <IconButton component={Link} to={moviesRoute}>
-                        <MovieOutlinedIcon />
-                    </IconButton>
-                </Tooltip>
-            </Box>
-        </AppBar>
+            <AppBar
+                position='static'
+                key='navbar'
+                className={`${classes.navbar} ${
+                    curLocation === '/' ? classes.homeNavBar : ''
+                }`}
+            >
+                <Typography
+                    variant='h6'
+                    key='logo'
+                    className={classes.logo}
+                    aria-label='Open homepage'
+                    component={Link}
+                    to={homeRoute}
+                    color='primary'
+                    style={{ color: curLocation === '/' ? '#ffffff' : '' }}
+                >
+                    DEMO Streaming
+                </Typography>
+                <Box display={curLocation === '/' ? 'none' : ''} key='navmenus'>
+                    <Tooltip title='Series' aria-label='Open series page'>
+                        <IconButton component={Link} to={seriesRoute}>
+                            <OndemandVideoIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title='Movies' aria-label='Open movies page'>
+                        <IconButton component={Link} to={moviesRoute}>
+                            <MovieOutlinedIcon />
+                        </IconButton>
+                    </Tooltip>
+                </Box>
+            </AppBar>
         </Box>
-    )
+    );
 }
